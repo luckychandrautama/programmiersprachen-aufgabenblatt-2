@@ -1,4 +1,8 @@
 #include "mat2.hpp"
+#include <iostream>
+#include <cmath>
+
+using namespace std;
 
 Mat2::Mat2() : a{1},
                b{0},
@@ -26,12 +30,54 @@ Mat2 &Mat2::operator*=(Mat2 const &m)
 
 Mat2 operator*(Mat2 const &m1, Mat2 const &m2)
 {
-    Mat2 result;
+    Mat2 result{m1};
 
-    result.a = m1.a * m2.a + m1.b * m2.c;
-    result.b = m1.a * m2.b + m1.b * m2.d;
-    result.c = m1.c * m2.a + m1.d * m2.c;
-    result.d = m1.c * m2.b + m1.d * m2.d;
+    result *= m2;
 
+    return result;
+}
+
+float Mat2::det() const
+{
+
+    float result = a * d - b * c;
+    return result;
+}
+
+Vec2 operator*(Mat2 const &m, Vec2 const &v)
+{
+    Vec2 result{m.a * v.x + m.b * v.y, m.c * v.x + m.d * v.y};
+    return result;
+}
+
+Vec2 operator*(Vec2 const &v, Mat2 const &m)
+{
+    cout << "Wrong order. return [matrix]*[vector] \n";
+    return m * v;
+}
+
+Mat2 transpose(Mat2 const &m)
+{
+    Mat2 trans{m.a, m.c*-1, m.b*-1, m.d};
+    return trans;
+}
+
+Mat2 inverse(Mat2 const &m)
+{
+    if (m.det() != 0)
+    {
+        Mat2 result{transpose(m).a / m.det(), transpose(m).b / m.det(), transpose(m).c / m.det(), transpose(m).d / m.det()};
+        return result;
+    }
+    else
+    {
+        cout << "determinant is zero. Inversion not possible \n";
+        return m;
+    }
+}
+
+Mat2 make_rotation_mat2(float phi)
+{
+    Mat2 result{cos(phi), -sin(phi), sin(phi), cos(phi)};
     return result;
 }

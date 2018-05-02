@@ -13,9 +13,9 @@ TEST_CASE("vec2 constructor", "[vector1]")
   REQUIRE(Vec2(2, 3).x == Approx(2.00f).epsilon(0.001));
   REQUIRE(Vec2(2.56, 3.78).y == Approx(3.78f).epsilon(0.001));
 
-  /*   Vec2 vector_03 ();
+  Vec2 vector_03{};
   REQUIRE(vector_03.x == 0);
-  REQUIRE(vector_03.y == 0); */
+  REQUIRE(vector_03.y == 0);
 }
 
 // AUFGABE 2.4
@@ -41,9 +41,9 @@ TEST_CASE("vec2 operator-=", "[vector3]")
   REQUIRE((vector_01 -= vector_02).x == Approx(10.41f).epsilon(0.01));
 
   REQUIRE((vector_01 -= vector_02).y == Approx(-7.78f).epsilon(0.01));
-  REQUIRE((vector_03 -=vector_04).x == 3.87f);
-  REQUIRE((vector_03 -=vector_04).y == 4.00f);
- 
+  REQUIRE((vector_03 -= vector_04).x == 3.87f);
+  REQUIRE((vector_03 -= vector_04).y == 4.00f);
+
   REQUIRE((Vec2() -= vector_02).x == Approx(3.87f).epsilon(0.01));
 }
 
@@ -118,7 +118,6 @@ TEST_CASE("vec2 operator*", "[vector8]")
   REQUIRE((vector_03 * 2.0).x == Approx(0).epsilon(0.01));
   REQUIRE((vector_03 * 2.0).y == Approx(0).epsilon(0.01));
 
-
   REQUIRE((2.0 * vector_01).x == Approx(5.34f).epsilon(0.01));
   REQUIRE((-1.34 * vector_02).y == Approx(-2.68f).epsilon(0.01));
 
@@ -140,44 +139,108 @@ TEST_CASE("vec2 operator/", "[vector9]")
   REQUIRE((vector_02 / -12.0).y == Approx(-0.17f).epsilon(0.01));
 }
 
-
 // AUFGABE 2.5
 TEST_CASE("mat2 constructor", "[vector10]")
 {
   Mat2 mat_01{};
-  Mat2 mat_02{-3.87f, 2.00f,-1.11,5.93};
+  Mat2 mat_02{-3.87f, 2.00f, -1.11, 5.93};
 
   REQUIRE(mat_01.a == Approx(1.0f).epsilon(0.01));
   REQUIRE(mat_02.a == Approx(-3.871f).epsilon(0.01));
   REQUIRE(mat_01.c == Approx(0.0f).epsilon(0.01));
   REQUIRE(mat_02.d == Approx(5.934f).epsilon(0.01));
-
 }
 
 TEST_CASE("mat2 operator*=", "[vector11]")
 {
   Mat2 mat_01{};
-  Mat2 mat_02{-3.87f, 2.00f,-1.11,5.93};
+  Mat2 mat_02{-3.87f, 2.00f, -1.11, 5.93};
 
-  REQUIRE((mat_02*=mat_01).a == mat_02.a);
-  REQUIRE((mat_02*=mat_01).b == mat_02.b);
-  REQUIRE((mat_02*=mat_01).c == Approx(-1.11f).epsilon(0.01));
-  REQUIRE((mat_02*=mat_01).d == Approx(5.93f).epsilon(0.01));
+  REQUIRE((mat_02 *= mat_01).a == mat_02.a);
+  REQUIRE((mat_02 *= mat_01).b == mat_02.b);
+  REQUIRE((mat_02 *= mat_01).c == Approx(-1.11f).epsilon(0.01));
+  REQUIRE((mat_02 *= mat_01).d == Approx(5.93f).epsilon(0.01));
 }
 
 TEST_CASE("mat2 operator*", "[vector12]")
 {
   Mat2 mat_01{};
-  Mat2 mat_02{-3.87f, 2.00f,-1.11,5.93};
+  Mat2 mat_02{-3.87f, 2.00f, -1.11, 5.93};
 
-  Mat2 result = mat_02*mat_01;
+  Mat2 result = mat_02 * mat_01;
   REQUIRE(result.a == Approx(-3.87f).epsilon(0.01));
   REQUIRE(result.b == Approx(2.00f).epsilon(0.01));
   REQUIRE(result.c == Approx(-1.11f).epsilon(0.01));
   REQUIRE(result.d == Approx(5.93f).epsilon(0.01));
-
 }
 
+// AUFGABE 2.7
+TEST_CASE("mat2 det", "[vector13]")
+{
+  Mat2 mat_01{};
+  Mat2 mat_02{-3.87f, 2.00f, -1.11, 5.93};
+  Mat2 mat_03{2.0f, 2.00f, 1.0f, 1.0f};
+
+  REQUIRE(mat_01.det() == 1);
+  REQUIRE(mat_02.det() == Approx(-20.72f).epsilon(0.01));
+  REQUIRE(mat_03.det() == Approx(0).epsilon(0.01));
+}
+
+TEST_CASE("mat2 *vec2", "[vector14]")
+{
+  Mat2 mat_01{};
+  Mat2 mat_02{-3.87f, 2.00f, -1.11, 5.93};
+  Mat2 mat_03{2.0f, 2.00f, 1.0f, 1.0f};
+
+  Vec2 vector_01{2.67f, -1.78f};
+  Vec2 vector_02{-3.87f, 2.00f};
+  Vec2 vector_03{};
+
+  Vec2 test01 = mat_01 * vector_01;
+  Vec2 test02 = vector_01 * mat_01;
+  Vec2 test03 = mat_03 * vector_03;
+  Vec2 test04 = vector_03 * mat_03;
+
+  REQUIRE(test01.x == Approx(2.67f).epsilon(0.01));
+  REQUIRE(test02.x == Approx(2.67f).epsilon(0.01));
+  REQUIRE(test03.y == Approx(0.0f).epsilon(0.01));
+  REQUIRE(test04.y == Approx(0.0f).epsilon(0.01));
+}
+
+TEST_CASE("mat2 inverse", "[vector15]")
+{
+  Mat2 mat_01{};
+  Mat2 mat_02{-3.87f, 2.00f, -1.11, 5.93};
+  Mat2 mat_03{2.0f, 2.00f, 1.0f, 1.0f};
+
+  REQUIRE(inverse(mat_01).a == Approx(1.0f).epsilon(0.01));
+  REQUIRE(inverse(mat_02).b == Approx(-0.05f).epsilon(0.01));
+  REQUIRE(inverse(mat_03).c == Approx(1.0f).epsilon(0.01));
+}
+
+TEST_CASE("mat2 transpose", "[vector15]")
+{
+  Mat2 mat_01{};
+  Mat2 mat_02{-3.87f, 2.00f, -1.11, 5.93};
+  Mat2 mat_03{2.0f, 2.00f, 1.0f, 1.0f};
+
+  REQUIRE(transpose(mat_01).a == Approx(1.0f).epsilon(0.01));
+  REQUIRE(transpose(mat_02).b == Approx(1.11f).epsilon(0.01));
+  REQUIRE(transpose(mat_03).c == Approx(-2.00f).epsilon(0.01));
+}
+
+
+TEST_CASE("mat2 ROTATION", "[vector15]")
+{
+  float degreePhi = 180*M_PI/180;
+  float radiaPhi = 0.75*M_PI;
+
+  REQUIRE(make_rotation_mat2(degreePhi).a == Approx(-1.0f).epsilon(0.01));
+  REQUIRE(make_rotation_mat2(degreePhi).b == Approx(0.0f).epsilon(0.01));
+  REQUIRE(make_rotation_mat2(radiaPhi).c == Approx(0.707f).epsilon(0.01));
+  REQUIRE(make_rotation_mat2(radiaPhi).d == Approx(-0.71f).epsilon(0.01));
+
+}
 
 
 int main(int argc, char *argv[])

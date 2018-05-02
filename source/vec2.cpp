@@ -11,8 +11,6 @@ Vec2::Vec2(float const &_x, float const &_y) : name{"custom constructed"},
                                                x{_x},
                                                y{_y} {}
 
-
-
 string Vec2::get_name() const
 {
     return name;
@@ -32,7 +30,6 @@ Vec2 &Vec2::operator-=(Vec2 const &v)
     y -= v.y;
 
     return *this;
-
 }
 
 Vec2 &Vec2::operator*=(float s)
@@ -75,18 +72,17 @@ Vec2 operator-(Vec2 const &u, Vec2 const &v)
 {
     Vec2 result;
     result.x = u.x - v.x;
-    result.y = u.y - v.y;Vec2 operator*(float s, Vec2 const &v);
-
+    result.y = u.y - v.y;
+    Vec2 operator*(float s, Vec2 const &v);
 
     return result;
 }
 
 Vec2 operator*(Vec2 const &u, float s)
 {
-    Vec2 result;
-    result.x = u.x * s;
-    result.y = u.y * s;
+    Vec2 result{u};
 
+    result *= s;
     return result;
 }
 
@@ -113,10 +109,5 @@ Vec2 operator/(Vec2 const &u, float s)
 
 Vec2 operator*(float s, Vec2 const &v)
 {
-
-    Vec2 result;
-    result.x = s * v.x;
-    result.y = s * v.y;
-
-    return result;
+    return v*s;
 }
