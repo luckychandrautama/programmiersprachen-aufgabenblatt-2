@@ -36,7 +36,10 @@
                 "/usr/include/x86_64-linux-gnu",
                 "/usr/include",
                 "${workspaceFolder}/external/catch-1.1",
-                "${workspaceFolder}/source"
+                "${workspaceFolder}/source",
+                "${workspaceFolder}/external",
+                "${workspaceFolder}/external/glfw-3.2.1/include",
+                "${workspaceFolder}/external/nanovg/src"
             ],
             "defines": [],
             "intelliSenseMode": "clang-x64",

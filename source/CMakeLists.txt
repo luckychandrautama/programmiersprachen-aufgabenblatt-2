@@ -5,6 +5,8 @@ add_executable(example
   example.cpp
   vec2.cpp
   vec2.hpp
+  mat2.cpp
+  mat2.hpp
 
   )
 target_link_libraries(example
@@ -21,6 +23,8 @@ add_executable(tests
   tests.cpp
   vec2.cpp
   vec2.hpp
+  mat2.cpp
+  mat2.hpp
   )
 target_link_libraries(tests
   glfw
