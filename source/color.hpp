@@ -16,6 +16,8 @@ struct Color{
     
 };
 
+    Color();
+
     Color(float s):
     r{s},
     g{s},
