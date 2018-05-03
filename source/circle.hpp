@@ -2,6 +2,7 @@
 #define CIRCLE_HPP
 #include "vec2.hpp"
 #include "color.hpp"
+#include "window.hpp"
 
 class Circle{
 
@@ -13,6 +14,9 @@ public:
     float get_radius() const;
     float circumference() const;
     Color get_color() const;
+
+    void draw(Window const& _win, Color const& overload_col);
+    
         
 
 private:

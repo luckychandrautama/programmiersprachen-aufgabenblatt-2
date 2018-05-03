@@ -27,3 +27,38 @@ Color Circle::get_color() const{
     return col;
 }
 
+void Circle::draw(Window const& _win, Color const& overload_col){
+
+    _win.draw_point(center.x,center.y,col.r, col.g, col.b);
+
+    _win.draw_line(center.x+radius, center.y-50.0f, center.x+radius, center.y+50.0f,
+        overload_col.r, overload_col.g, overload_col.b
+        );
+    _win.draw_line(center.x-radius, center.y-50.0f, center.x-radius, center.y+50.0f,
+        overload_col.r, overload_col.g, overload_col.b
+        );
+        
+    _win.draw_line(center.x+50.0f, center.y+radius, center.x-50.0f, center.y+radius,
+        overload_col.r, overload_col.g, overload_col.b
+        );
+
+    _win.draw_line(center.x-50.0f, center.y-radius, center.x+50.0f, center.y-radius,
+        overload_col.r, overload_col.g, overload_col.b
+        );
+        
+    _win.draw_line(center.x+radius, center.y+50.0f, center.x+50.0f, center.y+radius,
+        overload_col.r, overload_col.g, overload_col.b
+        );
+    
+    _win.draw_line(center.x-radius, center.y+50.0f, center.x-50.0f, center.y+radius,
+        overload_col.r, overload_col.g, overload_col.b
+        );
+    
+    _win.draw_line(center.x-radius, center.y-50.0f, center.x-50.0f, center.y-radius,
+        overload_col.r, overload_col.g, overload_col.b
+        );
+    
+    _win.draw_line(center.x+radius, center.y-50.0f, center.x+50.0f, center.y-radius,
+        overload_col.r, overload_col.g, overload_col.b
+        );        
+}

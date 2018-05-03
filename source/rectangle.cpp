@@ -1,6 +1,7 @@
 #include "rectangle.hpp"
 #include <cmath>
 #include <algorithm>
+#include "window.hpp"
 
 using namespace std;
 
@@ -35,3 +36,24 @@ float Rectangle::circumference() const{
 Color Rectangle::get_color() const{
     return col;
 }
+
+void Rectangle::draw(Window const& _win, Color const& overload_col){
+    
+    _win.draw_line(min_.x, min_.y, min_.x, max_.y,
+        overload_col.r, overload_col.g, overload_col.b
+        );
+
+
+    _win.draw_line(max_.x, min_.y, max_.x, max_.y,
+        overload_col.r, overload_col.g, overload_col.b
+        );
+
+    _win.draw_line(min_.x, min_.y, max_.x, min_.y,
+        overload_col.r, overload_col.g, overload_col.b
+        );  
+
+    _win.draw_line(min_.x, max_.y, max_.x, max_.y,
+        overload_col.r, overload_col.g, overload_col.b
+        );  
+
+    }
