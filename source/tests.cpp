@@ -2,6 +2,7 @@
 #include <catch.hpp>
 #include "vec2.hpp"
 #include "mat2.hpp"
+#include "color.hpp"
 
 // AUFGABE 2.3
 
@@ -174,7 +175,7 @@ TEST_CASE("mat2 operator*", "[vector12]")
   REQUIRE(result.d == Approx(5.93f).epsilon(0.01));
 }
 
-// AUFGABE 2.7
+// AUFGABE 2.6
 TEST_CASE("mat2 det", "[vector13]")
 {
   Mat2 mat_01{};
@@ -218,7 +219,7 @@ TEST_CASE("mat2 inverse", "[vector15]")
   REQUIRE(inverse(mat_03).c == Approx(1.0f).epsilon(0.01));
 }
 
-TEST_CASE("mat2 transpose", "[vector15]")
+TEST_CASE("mat2 transpose", "[vector16]")
 {
   Mat2 mat_01{};
   Mat2 mat_02{-3.87f, 2.00f, -1.11, 5.93};
@@ -230,7 +231,7 @@ TEST_CASE("mat2 transpose", "[vector15]")
 }
 
 
-TEST_CASE("mat2 ROTATION", "[vector15]")
+TEST_CASE("mat2 ROTATION", "[vector17]")
 {
   float degreePhi = 180*M_PI/180;
   float radiaPhi = 0.75*M_PI;
@@ -242,7 +243,22 @@ TEST_CASE("mat2 ROTATION", "[vector15]")
 
 }
 
+// AUFGABE 2.7
+TEST_CASE("COLOR", "[vector18]")
+{
+  Color black {0.0}; // sets r = g = b =0.0
+  Color red {1.0 , 0.0 ,0.0};
 
+  REQUIRE(black.r == Approx(0.0f).epsilon(0.01f));
+  REQUIRE(black.g == Approx(0.0f).epsilon(0.01f));
+  REQUIRE(black.b == Approx(0.0f).epsilon(0.01f));
+  
+  REQUIRE(red.r == Approx(1.0f).epsilon(0.01f));
+  REQUIRE(red.g == Approx(0.0f).epsilon(0.01f));
+  REQUIRE(red.b == Approx(0.0f).epsilon(0.01f));
+  
+  
+}
 int main(int argc, char *argv[])
 {
   return Catch::Session().run(argc, argv);
