@@ -10,9 +10,9 @@ struct Color{
     g{_g},
     b{_b}
 {
-    r = max(r,0.0f) || min(r,1.0f);
-    g = max(g,0.0f) || min(g,1.0f);
-    b = max(b,0.0f) || min(b,1.0f);
+    _r = max(r,0.0f) || min(r,1.0f);
+    _g = max(g,0.0f) || min(g,1.0f);
+    _b = max(b,0.0f) || min(b,1.0f);
     
 };
 

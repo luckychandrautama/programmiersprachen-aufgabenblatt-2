@@ -2,6 +2,9 @@
 #include <catch.hpp>
 #include "vec2.hpp"
 #include "mat2.hpp"
+#include "circle.hpp"
+#include "rectangle.hpp"
+
 #include "color.hpp"
 
 // AUFGABE 2.3
@@ -249,6 +252,7 @@ TEST_CASE("COLOR", "[vector18]")
   Color black {0.0}; // sets r = g = b =0.0
   Color red {1.0 , 0.0 ,0.0};
 
+  Color test {0.5, 0.5,0.5};
   REQUIRE(black.r == Approx(0.0f).epsilon(0.01f));
   REQUIRE(black.g == Approx(0.0f).epsilon(0.01f));
   REQUIRE(black.b == Approx(0.0f).epsilon(0.01f));
@@ -257,8 +261,38 @@ TEST_CASE("COLOR", "[vector18]")
   REQUIRE(red.g == Approx(0.0f).epsilon(0.01f));
   REQUIRE(red.b == Approx(0.0f).epsilon(0.01f));
   
+  REQUIRE(test.r == Approx(0.5f).epsilon(0.01f));
+  REQUIRE(test.g == Approx(0.5f).epsilon(0.01f));
+  REQUIRE(test.b == Approx(0.5f).epsilon(0.01f));
+  
   
 }
+
+// AUFGABE 2.8
+TEST_CASE("CircleRectangle", "[vector19]")
+{
+  Vec2 punkt1{};
+  Vec2 punkt2{2.2f,-3.4f};
+  
+  Circle cir1 {punkt1, 2.2f};
+  Circle cir2 {punkt2, -5.0f};
+
+  Rectangle rect1 {punkt1, punkt2};
+
+  REQUIRE(cir1.get_radius() == Approx(2.2f).epsilon(0.01f));
+  REQUIRE(cir1.get_center().x == Approx(0.0f).epsilon(0.01f));
+  REQUIRE(cir2.get_radius() == Approx(5.0f).epsilon(0.01f));
+  REQUIRE(cir2.get_center().y == Approx(-3.4f).epsilon(0.01f));
+  
+  REQUIRE(rect1.get_length()== Approx(3.4f).epsilon(0.01f));
+  REQUIRE(rect1.get_width()== Approx(2.2f).epsilon(0.01f));
+  REQUIRE(rect1.get_max().x== Approx(2.2f).epsilon(0.01f));
+  REQUIRE(rect1.get_max().y== Approx(0.0f).epsilon(0.01f));
+  REQUIRE(rect1.get_min().x== Approx(0.0f).epsilon(0.01f));  
+  REQUIRE(rect1.get_min().y== Approx(-3.4f).epsilon(0.01f));
+  
+}
+
 int main(int argc, char *argv[])
 {
   return Catch::Session().run(argc, argv);
